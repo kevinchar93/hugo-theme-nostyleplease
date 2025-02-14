@@ -23,6 +23,18 @@
     {{- if $.Site.Params.theme_config.show_description -}}
         <p>{{ $.Site.Params.description }}</p>
     {{- end -}}
+    <script>
+        // detect & set light / dark mode
+        if (localStorage.getItem("pref-theme") === "dark") {
+            document.body.setAttribute("a", "dark")
+        } else if (localStorage.getItem("pref-theme") === "light") {
+            document.body.setAttribute("a", "light")
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.setAttribute("a", "dark")
+        } else {
+            document.body.setAttribute("a", "light")
+        }
+    </script>
 </header>
 {{ .Content }}
 {{ partial "menu_item.html" (dict "context" . "collection" $.Site.Data.menu.entries) }}
